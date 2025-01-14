@@ -32,6 +32,8 @@ def login():
             login_user(user)
             flash('Login successful')
             return redirect(url_for('auth.dashboard'))
+        if user.is_admin:
+            return redirect(url_for('admin.index'))
         flash('Invalid credentials')
     return render_template('login.html')
 
