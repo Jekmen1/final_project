@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
 </head>
 <body>
-    <h1>{{ message }}</h1>
-    <p>You're logged in! Feel free to navigate the site.</p>
-    <a href="{{ url_for('auth.logout') }}">Logout</a>
+    <h1>Welcome, {{ current_user.username }}</h1>
+    <h2>Chat Rooms</h2>
+    <form method="POST" action="{{ url_for('chat.chat') }}">
+        <input type="text" name="room_name" placeholder="Enter Room Name">
+        <button type="submit">Create or Join Room</button>
+    </form>
+    <ul>
+        {% for room in rooms %}
+        <li><a href="{{ url_for('chat.room', room_name=room.name) }}">{{ room.name }}</a></li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

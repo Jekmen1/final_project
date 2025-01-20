@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ room.name }}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const room = "{{ room.name }}";
+        const roomId = "{{ room.id }}";
+        socket.emit('join', { room: room });
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            socket.emit('send_message', { room: room, room_id: roomId, message: message });
+            document.getElementById('message').value = '';
+        }
+
+        socket.on('receive_message', data => {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<p><b>${data.username}:</b> ${data.message}</p>`;
+        });
+
+        socket.on('status', data => {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<p><i>${data.msg}</i></p>`;
+        });
+    </script>
+</head>
+<body>
+    <h1>Chat Room: {{ room.name }}</h1>
+    <div id="chat-box">
+        {% for msg in messages %}
+        <p><b>{{ msg.user.username }}:</b> {{ msg.content }}</p>
+        {% endfor %}
+    </div>
+    <input id="message" type="text" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+</body>
+</html>

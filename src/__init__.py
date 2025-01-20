@@ -1,6 +1,6 @@
 from flask import Flask
 from .config import Config
-from .extensions import db, login_manager, admin, migrate
+from .extensions import db, login_manager, admin, migrate, socketio
 from flask_admin.contrib.sqla import ModelView
 from .models.user import User
 from .models.chat import ChatRoom, Message
@@ -19,14 +19,19 @@ def create_app():
 
     register_ext(app)
     login_manager.init_app(app)
+    socketio.init_app(app)
+
     admin.init_app(app)
     admin.add_view(UserView(User, db.session))
     admin.add_view(ModelView(ChatRoom, db.session))
     admin.add_view(ModelView(Message, db.session))
+
     register_commands(app)
 
     from .views.auth.routes import auth_bp
+    from .views.chat_view.routes import chat_bp
     app.register_blueprint(auth_bp, url_prefix='/')
+    app.register_blueprint(chat_bp, url_prefix='/')
 
 
     return app

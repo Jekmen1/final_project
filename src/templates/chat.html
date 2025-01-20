@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Rooms</title>
+</head>
+<body>
+    <h1>Welcome, {{ current_user.username }}</h1>
+    <h2>Available Chat Rooms</h2>
+
+    <form method="POST" action="{{ url_for('chat.chat') }}">
+        <label for="room_name">Create or Join a Room:</label>
+        <input type="text" name="room_name" id="room_name" placeholder="Enter Room Name" required>
+        <button type="submit">Enter</button>
+    </form>
+
+    <ul>
+        {% for room in rooms %}
+        <li>
+            <a href="{{ url_for('chat.room', room_name=room.name) }}">{{ room.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if not rooms %}
+    <p>No rooms available. Create the first one!</p>
+    {% endif %}
+</body>
+</html>
