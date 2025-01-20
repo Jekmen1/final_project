@@ -6,7 +6,7 @@ from .models.user import User
 from .models.chat import ChatRoom, Message
 from .admin_views.base import SecureModelView
 from.commands import init_db, populate_db
-
+from.admin_views.user import UserView
 
 COMMANDS = [
     init_db,
@@ -20,7 +20,9 @@ def create_app():
     register_ext(app)
     login_manager.init_app(app)
     admin.init_app(app)
-    admin.add_view(SecureModelView(User, db.session))
+    admin.add_view(UserView(User, db.session))
+    admin.add_view(ModelView(ChatRoom, db.session))
+    admin.add_view(ModelView(Message, db.session))
     register_commands(app)
 
     from .views.auth.routes import auth_bp
