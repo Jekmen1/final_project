@@ -2,9 +2,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_admin import Admin
 from .admin_views.base import SecureIndexView
+from flask_migrate import Migrate
+
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+migrate = Migrate()
 login_manager.login_view = "auth.login"
 admin = Admin(name="App Admin panel", template_mode="bootstrap4",index_view=SecureIndexView())
 
