@@ -7,6 +7,7 @@ from .models.chat import ChatRoom, Message
 from .admin_views.base import SecureModelView
 from.commands import init_db, populate_db
 from.admin_views.user import UserView
+from.admin_views.chat import ChatView, MSGView
 
 COMMANDS = [
     init_db,
@@ -23,8 +24,8 @@ def create_app():
 
     admin.init_app(app)
     admin.add_view(UserView(User, db.session))
-    admin.add_view(ModelView(ChatRoom, db.session))
-    admin.add_view(ModelView(Message, db.session))
+    admin.add_view(ChatView(ChatRoom, db.session))
+    admin.add_view(MSGView(Message, db.session))
 
     register_commands(app)
 
