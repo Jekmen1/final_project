@@ -26,5 +26,9 @@
     {% if not rooms %}
     <p>No rooms available. Create the first one!</p>
     {% endif %}
+
+    <form action="{{ url_for('auth.logout') }}" method="POST" style="margin-top: 20px;">
+        <button class="btn btn-danger">Logout</button>
+    </form>
 </body>
 </html>

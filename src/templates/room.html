@@ -35,5 +35,11 @@
     </div>
     <input id="message" type="text" placeholder="Type a message...">
     <button onclick="sendMessage()">Send</button>
+
+    <div class="mt-3">
+        <form action="{{ url_for('chat.chat') }}" method="GET">
+            <button class="btn btn-warning">Leave Room</button>
+        </form>
+    </div>
 </body>
 </html>
