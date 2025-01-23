@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>Welcome to Flask Chat App</h1>
+    <p class="lead">Connect with people in real-time. Join or create chat rooms and start chatting!</p>
+
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{{ url_for('auth.register') }}" class="btn btn-primary mx-2">Register</a>
+        
+        <a href="{{ url_for('auth.login') }}" class="btn btn-success mx-2">Login</a>
+
+        <a href="{{ url_for('chat.chat') }}" class="btn btn-info mx-2">Chats</a>
+    </div>
+</div>
+{% endblock %}

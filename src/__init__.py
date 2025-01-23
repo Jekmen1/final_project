@@ -1,7 +1,6 @@
 from flask import Flask
 from .config import Config
 from .extensions import db, login_manager, admin, migrate, socketio
-from flask_admin.contrib.sqla import ModelView
 from .models.user import User
 from .models.chat import ChatRoom, Message
 from .admin_views.base import SecureModelView

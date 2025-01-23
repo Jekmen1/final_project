@@ -8,6 +8,10 @@ from ...extensions import db
 auth_bp = Blueprint('auth', __name__, template_folder='templates')
 
 
+@auth_bp.route('/')
+def home():
+    return render_template('home.html')
+
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
