@@ -25,7 +25,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Account created successfully', 'success')
-        return redirect(url_for('auth.dashboard'))
+        return redirect(url_for('chat.chat'))
     return render_template('auth/register.html', form=form)
 
 
@@ -37,7 +37,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             flash('Login successful', 'success')
-            return redirect(url_for('auth.dashboard'))
+            return redirect(url_for('chat.chat'))
         flash('Invalid email or password', 'danger')
     return render_template('auth/login.html', form=form)
 
@@ -50,7 +50,4 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
-@auth_bp.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('dashboard.html', message="Welcome to your dashboard!")
+
