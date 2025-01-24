@@ -7,4 +7,4 @@ class UserView(SecureModelView):
 
     column_exclude_list = ["password"]
 
-    column_filters = ["id"]
+    column_filters = ["id", "username"]
