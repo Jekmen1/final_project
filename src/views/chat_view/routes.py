@@ -18,14 +18,14 @@ def chat():
             db.session.commit()
         return redirect(url_for('chat.room', room_name=room_name))
     rooms = ChatRoom.query.all()
-    return render_template('chat.html', rooms=rooms)
+    return render_template('chatapp/chat.html', rooms=rooms)
 
 @chat_bp.route('/chat/<room_name>')
 @login_required
 def room(room_name):
     room = ChatRoom.query.filter_by(name=room_name).first_or_404()
     messages = Message.query.filter_by(room_id=room.id).order_by(Message.timestamp).all()
-    return render_template('room.html', room=room, messages=messages)
+    return render_template('chatapp/room.html', room=room, messages=messages)
 
 @socketio.on('send_message')
 def handle_send_message(data):

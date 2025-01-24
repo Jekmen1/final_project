@@ -6,3 +6,5 @@ class UserView(SecureModelView):
     can_edit = False
 
     column_exclude_list = ["password"]
+
+    column_filters = ["id"]
