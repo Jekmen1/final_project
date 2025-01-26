@@ -4,31 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Rooms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h1>Welcome, {{ current_user.username }}</h1>
-    <h2>Available Chat Rooms</h2>
+    <div class="chat-container">
+        <div class="sidebar">
+            <h2>Channel List</h2>
+            <ul>
+                {% for room in rooms %}
+                <li>
+                    <a href="{{ url_for('chat.room', room_name=room.name) }}">
+                        <div class="room">
+                            <p class="room-name">{{ room.name }}</p>
+                            <p class="room-last-message">Last message...</p>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+                {% if not rooms %}
+                <p>No rooms available. Create the first one!</p>
+                {% endif %}
+            </ul>
 
-    <form method="POST" action="{{ url_for('chat.chat') }}">
-        <label for="room_name">Create or Join a Room:</label>
-        <input type="text" name="room_name" id="room_name" placeholder="Enter Room Name" required>
-        <button type="submit">Enter</button>
-    </form>
 
-    <ul>
-        {% for room in rooms %}
-        <li>
-            <a href="{{ url_for('chat.room', room_name=room.name) }}">{{ room.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
+            <div id="room-form" class="room-form hidden">
+                <form method="POST" action="{{ url_for('chat.chat') }}">
+                    <label for="room_name">Enter Room Name</label>
+                    <input type="text" name="room_name" id="room_name" placeholder="Enter Room Name" required>
+                    <button type="submit">Enter</button>
+                </form>
+            </div>
+        </div>
 
-    {% if not rooms %}
-    <p>No rooms available. Create the first one!</p>
-    {% endif %}
-
-    <form action="{{ url_for('auth.logout') }}" method="POST" style="margin-top: 20px;">
-        <button class="btn btn-danger">Logout</button>
-    </form>
+        <div class="chat-window">
+            <div class="chat-header">Select a Room</div>
+            <p class="chat-placeholder">Please select a room from the list to start chatting.</p>
+        </div>
+    </div>
 </body>
 </html>

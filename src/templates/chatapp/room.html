@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ room.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
     <script>
         const socket = io();
@@ -27,19 +30,48 @@
     </script>
 </head>
 <body>
-    <h1>Chat Room: {{ room.name }}</h1>
-    <div id="chat-box">
-        {% for msg in messages %}
-        <p><b>{{ msg.user.username }}:</b> {{ msg.content }}</p>
-        {% endfor %}
-    </div>
-    <input id="message" type="text" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
+    <div class="chat-container">
+        <div class="sidebar">
+            <h2>Channel List</h2>
+            <ul>
+                {% if rooms %}
+                    {% for one_room in rooms %}
+                    <li>
+                        <a href="{{ url_for('chat.room', room_name=one_room.name) }}">
+                            <div class="room">
+                                <p class="room-name">{{ one_room.name }}</p>
+                                <p class="room-last-message">Last message...</p>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <p>No rooms available. Create the first one!</p>
+                {% endif %}
+            </ul>
+            <div id="room-form" class="room-form">
+                <form method="POST" action="{{ url_for('chat.chat') }}">
+                    <label for="room_name">Enter Room Name</label>
+                    <input type="text" name="room_name" id="room_name" placeholder="Enter Room Name" required>
+                    <button type="submit">Enter</button>
+                </form>
+            </div>
+        </div>
 
-    <div class="mt-3">
-        <form action="{{ url_for('chat.chat') }}" method="GET">
-            <button class="btn btn-warning">Leave Room</button>
-        </form>
+        <div class="chat-window">
+            <div class="chat-header">{{ room.name }}</div>
+            <div id="chat-box" class="chat-box">
+                {% for msg in messages %}
+                <div class="message">
+                    <strong>{{ msg.user.username }}:</strong> {{ msg.content }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="chat-input">
+                <input id="message" type="text" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

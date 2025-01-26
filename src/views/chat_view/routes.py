@@ -23,9 +23,10 @@ def chat():
 @chat_bp.route('/chat/<room_name>')
 @login_required
 def room(room_name):
+    all_rooms = ChatRoom.query.all()
     room = ChatRoom.query.filter_by(name=room_name).first_or_404()
     messages = Message.query.filter_by(room_id=room.id).order_by(Message.timestamp).all()
-    return render_template('chatapp/room.html', room=room, messages=messages)
+    return render_template('chatapp/room.html', rooms=all_rooms, room=room, messages=messages)
 
 @socketio.on('send_message')
 def handle_send_message(data):
