@@ -3,11 +3,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     color: #333;
+    overflow: hidden;
 }
 
 .chat-container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -18,6 +20,8 @@ body {
     flex-direction: column;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 100%;
 }
 
 .sidebar h2 {
@@ -53,6 +57,8 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #fff;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .chat-header {
@@ -62,6 +68,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .chat-box {
@@ -89,6 +96,7 @@ body {
 .chat-input {
     display: flex;
     padding: 15px;
+    flex-shrink: 0;
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
 }
@@ -139,4 +147,9 @@ body {
 
 .logout-button:hover {
     background-color: #c9302c;
+}
+
+.room-last-message {
+    color: #000; 
+    font-weight: normal;
 }

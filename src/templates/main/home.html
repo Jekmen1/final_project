@@ -9,7 +9,7 @@
 
     <div class="d-flex justify-content-center mt-4">
         <a href="{{ url_for('auth.register') }}" class="btn btn-primary mx-2">Register</a>
-        
+
         <a href="{{ url_for('auth.login') }}" class="btn btn-success mx-2">Login</a>
 
         <a href="{{ url_for('chat.chat') }}" class="btn btn-info mx-2">Chats</a>
@@ -17,8 +17,9 @@
 
 
     <div class="d-flex justify-content-center mt-4">
-        <img src="{{ url_for('static', filename='images/chatrl.jpeg') }}" alt="Chat App" style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    </div>
-
+    <img src="{{ url_for('static', filename='images/chatrl.jpeg') }}" alt="Chat App"
+         style="max-width: 100%; height: auto; border-radius: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: 3px solid black;">
+</div>
 </div>
 {% endblock %}

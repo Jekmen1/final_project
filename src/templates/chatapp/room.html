@@ -33,6 +33,13 @@
     <div class="chat-container">
         <div class="sidebar">
             <h2>Channel List</h2>
+            <div id="room-form" class="room-form hidden">
+                <form method="POST" action="{{ url_for('chat.chat') }}">
+                    <label for="room_name">Search or Create room</label>
+                    <input type="text" name="room_name" id="room_name" placeholder="Enter Room Name" required>
+                    <button type="submit">Enter</button>
+                </form>
+            </div>
             <ul>
                 {% if rooms %}
                     {% for one_room in rooms %}
@@ -40,7 +47,6 @@
                         <a href="{{ url_for('chat.room', room_name=one_room.name) }}">
                             <div class="room">
                                 <p class="room-name">{{ one_room.name }}</p>
-                                <p class="room-last-message">Last message...</p>
                             </div>
                         </a>
                     </li>
@@ -49,13 +55,6 @@
                     <p>No rooms available. Create the first one!</p>
                 {% endif %}
             </ul>
-            <div id="room-form" class="room-form">
-                <form method="POST" action="{{ url_for('chat.chat') }}">
-                    <label for="room_name">Enter Room Name</label>
-                    <input type="text" name="room_name" id="room_name" placeholder="Enter Room Name" required>
-                    <button type="submit">Enter</button>
-                </form>
-            </div>
             <div class="logout">
                 <a href="{{ url_for('auth.logout') }}" class="logout-button">Logout</a>
             </div>

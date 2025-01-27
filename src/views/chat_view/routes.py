@@ -7,6 +7,7 @@ from ...extensions import socketio
 
 chat_bp = Blueprint('chat', __name__, template_folder='templates')
 
+
 @chat_bp.route('/chat', methods=['GET', 'POST'])
 @login_required
 def chat():
@@ -17,8 +18,17 @@ def chat():
             db.session.add(new_room)
             db.session.commit()
         return redirect(url_for('chat.room', room_name=room_name))
-    rooms = ChatRoom.query.all()
+
+    rooms = []
+    for room in ChatRoom.query.all():
+        last_message = Message.query.filter_by(room_id=room.id).order_by(Message.timestamp.desc()).first()
+        rooms.append({
+            "room": room,
+            "last_message": last_message.content if last_message else "No messages yet."
+        })
+
     return render_template('chatapp/chat.html', rooms=rooms)
+
 
 @chat_bp.route('/chat/<room_name>')
 @login_required
@@ -27,6 +37,8 @@ def room(room_name):
     room = ChatRoom.query.filter_by(name=room_name).first_or_404()
     messages = Message.query.filter_by(room_id=room.id).order_by(Message.timestamp).all()
     return render_template('chatapp/room.html', rooms=all_rooms, room=room, messages=messages)
+
+
 
 @socketio.on('send_message')
 def handle_send_message(data):
