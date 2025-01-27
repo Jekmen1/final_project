@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container text-center mt-5">
-    <h1>Welcome to Flask Chat App</h1>
+    <h1>Welcome to Chat App</h1>
     <p class="lead">Connect with people in real-time. Join or create chat rooms and start chatting!</p>
 
     <div class="d-flex justify-content-center mt-4">
@@ -14,5 +14,11 @@
 
         <a href="{{ url_for('chat.chat') }}" class="btn btn-info mx-2">Chats</a>
     </div>
+
+
+    <div class="d-flex justify-content-center mt-4">
+        <img src="{{ url_for('static', filename='images/chatrl.jpeg') }}" alt="Chat App" style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    </div>
+
 </div>
 {% endblock %}
