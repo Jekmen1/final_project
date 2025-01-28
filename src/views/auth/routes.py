@@ -17,16 +17,30 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         email = form.email.data
+        username = form.username.data
+
         if User.query.filter_by(email=email).first():
-            flash('Email already exists', 'danger')
+            flash('Email already exists. Please use a different one.', 'danger')
             return redirect(url_for('auth.register'))
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists. Please choose a different one.', 'danger')
+            return redirect(url_for('auth.register'))
+
+        # Create a new user
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=16)
-        new_user = User(username=form.username.data, email=email, password=hashed_password)
+        new_user = User(username=username, email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash('Account created successfully', 'success')
-        return redirect(url_for('chat.chat'))
+
+        flash('Account created successfully. You can now log in.', 'success')
+        return redirect(url_for('auth.login'))
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in the {field} field - {error}", 'danger')
+
     return render_template('auth/register.html', form=form)
+
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -38,9 +52,10 @@ def login():
             login_user(user)
             flash('Login successful', 'success')
             return redirect(url_for('chat.chat'))
-        flash('Invalid email or password', 'danger')
+        else:
+            flash('Invalid email or password', 'danger')
+            return redirect(url_for('auth.login'))
     return render_template('auth/login.html', form=form)
-
 
 @auth_bp.route('/logout', methods=['GET', 'POST'])
 @login_required

@@ -23,3 +23,13 @@ def populate_db():
     db.session.commit()
     click.echo("Populated db")
 
+
+def init_test_db():
+    db.create_all()
+
+    for i in range(0, 3):
+        new_room = ChatRoom(name=f"testroom{i}")
+        new_room.create()
+
+
+
