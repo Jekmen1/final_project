@@ -3,6 +3,8 @@ import os
 import pytest
 from src import create_app
 import tempfile
+
+from ..extensions import admin
 from ..commands import init_test_db
 
 
@@ -19,6 +21,7 @@ def app():
         "DEBUG": False
     })
 
+    admin._views = []
     with app.app_context():
         init_test_db()
 

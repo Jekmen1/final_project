@@ -26,7 +26,6 @@ def register():
             flash('Username already exists. Please choose a different one.', 'danger')
             return redirect(url_for('auth.register'))
 
-        # Create a new user
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256', salt_length=16)
         new_user = User(username=username, email=email, password=hashed_password)
         db.session.add(new_user)
