@@ -6,6 +6,7 @@ import tempfile
 from ..commands import init_test_db
 
 
+
 @pytest.fixture
 def app():
     db_fd, db_path = tempfile.mkstemp()
