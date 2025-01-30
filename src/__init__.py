@@ -30,8 +30,8 @@ def create_app():
 
     from .views.auth.routes import auth_bp
     from .views.chat_view.routes import chat_bp
-    app.register_blueprint(auth_bp, url_prefix='/')
-    app.register_blueprint(chat_bp, url_prefix='/')
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(chat_bp)
 
 
     return app
