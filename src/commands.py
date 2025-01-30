@@ -28,8 +28,8 @@ def init_test_db():
     db.create_all()
 
     for i in range(0, 3):
-        new_room = ChatRoom(name=f"testroom{i}")
-        new_room.create()
-
+        new_room = ChatRoom(name=f"testroomg{i}")
+        db.session.add(new_room)
+    db.session.commit()
 
 

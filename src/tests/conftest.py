@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from ...app import create_app
+from src import create_app
 import tempfile
 from ..commands import init_test_db
 
