@@ -4,8 +4,8 @@ import pytest
 from src import create_app
 import tempfile
 
-from ..extensions import admin
-from ..commands import init_test_db
+from src.extensions import admin
+from src.commands import init_test_db
 
 
 

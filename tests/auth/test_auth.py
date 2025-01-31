@@ -20,3 +20,11 @@ def test_login(client):
         )
 
         assert current_user.is_authenticated
+
+
+def test_successful_register(client):
+    assert client.get('/register').status_code == 200
+    response = client.post('/register', data={'username': "mesi", "email": "messi555@mail.com",
+                                              "password": "mesi555", "confirm_password": "messi555"}, follow_redirects=True)
+
+    assert response.request.path == '/register'
