@@ -1,4 +1,3 @@
-FROM ubuntu:latest
-LABEL authors="user"
-
-ENTRYPOINT ["top", "-b"]
+FROM nginx:1.25.0
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/

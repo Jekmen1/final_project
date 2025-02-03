@@ -1,0 +1,19 @@
+services:
+  flask:
+    build: .
+    container_name: flask_docker
+    expose:
+      - 5000
+    restart: always
+    volumes:
+      - db:/instance/db.sqlite3
+      - uploads:/src/static/images
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+
+volumes:
+  uploads:
+  db:
